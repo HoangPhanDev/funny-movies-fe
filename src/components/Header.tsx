@@ -54,7 +54,8 @@ export const Header = (props: HeaderProps) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           loginMutation(values);
-        }}>
+        }}
+        enableReinitialize>
         {({ errors, setFieldValue }) => (
           <Form>
             <Stack direction={"row"} spacing={2}>

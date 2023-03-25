@@ -37,7 +37,8 @@ export const Share = (props: Props) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           shareMovieMutation(values.url);
-        }}>
+        }}
+        enableReinitialize  >
         {({ isValid, dirty, errors, setFieldValue }) => (
           <Form>
             <Stack spacing={2}>

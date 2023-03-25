@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Posts } from "../pages/Posts";
 import { Share } from "../pages/Share";
 
@@ -18,6 +18,7 @@ export const Content = (props: Props) => {
       <Routes>
         <Route path='/' element={<Posts />} />
         <Route path='/share' element={<Share />} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </Stack>
   );
