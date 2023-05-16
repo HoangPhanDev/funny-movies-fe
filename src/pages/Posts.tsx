@@ -1,4 +1,4 @@
-import { Stack, Typography, Divider } from "@mui/material";
+import { Stack, Typography, Divider, Grid, useTheme } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPosts, like, unlike } from "../utils/apis";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
@@ -17,6 +17,7 @@ type Props = {};
 export const Posts = (props: Props) => {
   const LIMIT = 10;
   const [page, setPage] = useState(1);
+  const theme = useTheme();
 
   const { data, isFetching } = useQuery({
     queryKey: ["getPost", page],
@@ -102,83 +103,101 @@ export const Posts = (props: Props) => {
         return (
           <React.Fragment key={post._id}>
             <Stack direction={"row"} spacing={2}>
-              <Stack
-                sx={{
-                  flex: 1,
-                }}>
-                {openMovieIds.find((id) => id === post._id) ? (
-                  <ReactPlayer width={400} url={post.url} />
-                ) : (
+              <Grid container>
+                <Grid item sm={12} md={6}>
                   <Stack
                     sx={{
-                      position: "relative",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      flex: 1,
+                      [theme.breakpoints.down("md")]: {
+                        alignItems: "center",
+                      },
                     }}>
-                    <img
-                      src={post.thumbnail}
-                      width={400}
-                      alt={post.thumbnail}
-                    />
-                    <PlayCircleOutlineIcon
-                      role='presentation'
-                      sx={{
-                        position: "absolute",
-                        color: "white",
-                        width: 50,
-                        height: 50,
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        setOpenMovieIds((v) => v.concat(post._id));
-                      }}
-                    />
-                  </Stack>
-                )}
-              </Stack>
-              <Stack key={post._id} sx={{ flex: 1, width: 500 }} spacing={1}>
-                <Typography sx={{ color: "red", fontWeight: "bold" }}>
-                  {post?.title}
-                </Typography>
-                <Typography>Shared by:{post?.sharer?.email}</Typography>
-
-                <Stack direction={"row"} alignItems='center'>
-                  <Stack
-                    direction={"row"}
-                    sx={{ cursor: "pointer" }}
-                    spacing={0.5}
-                    onClick={() => {
-                      likeMutation(post._id);
-                    }}>
-                    <Typography>{post?.like_count || ""}</Typography>
-                    {post.reaction_state === "like" ? (
-                      <ThumbUpAltIcon />
+                    {openMovieIds.find((id) => id === post._id) ? (
+                      <ReactPlayer width={400} url={post.url} />
                     ) : (
-                      <ThumbUpOffAltIcon />
+                      <Stack
+                        sx={{
+                          position: "relative",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}>
+                        <img
+                          src={post.thumbnail}
+                          width={400}
+                          alt={post.thumbnail}
+                        />
+                        <PlayCircleOutlineIcon
+                          role='presentation'
+                          sx={{
+                            position: "absolute",
+                            color: "white",
+                            width: 50,
+                            height: 50,
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            setOpenMovieIds((v) => v.concat(post._id));
+                          }}
+                        />
+                      </Stack>
                     )}
                   </Stack>
-
+                </Grid>
+                <Grid item sm={12} md={6}>
                   <Stack
-                    direction={"row"}
-                    sx={{ ml: 2, cursor: "pointer" }}
-                    spacing={0.5}
-                    onClick={() => {
-                      unlikeMutation(post._id);
-                    }}>
-                    <Typography>{post?.unlike_count || ""}</Typography>
-                    {post.reaction_state === "un_like" ? (
-                      <ThumbDownAltIcon />
-                    ) : (
-                      <ThumbDownOffAltIcon />
-                    )}
-                  </Stack>
-                </Stack>
+                    key={post._id}
+                    sx={{
+                      flex: 1,
+                      [theme.breakpoints.down("md")]: {
+                        alignItems: "center",
+                      },
+                      my: 2,
+                    }}
+                    spacing={1}>
+                    <Typography sx={{ color: "red", fontWeight: "bold" }}>
+                      {post?.title}
+                    </Typography>
+                    <Typography>Shared by:{post?.sharer?.email}</Typography>
 
-                <Typography>Description:</Typography>
-                <Typography sx={{ whiteSpace: "break-spaces" }}>
-                  {post.description}
-                </Typography>
-              </Stack>
+                    <Stack direction={"row"} alignItems='center'>
+                      <Stack
+                        direction={"row"}
+                        sx={{ cursor: "pointer" }}
+                        spacing={0.5}
+                        onClick={() => {
+                          likeMutation(post._id);
+                        }}>
+                        <Typography>{post?.like_count || ""}</Typography>
+                        {post.reaction_state === "like" ? (
+                          <ThumbUpAltIcon />
+                        ) : (
+                          <ThumbUpOffAltIcon />
+                        )}
+                      </Stack>
+
+                      <Stack
+                        direction={"row"}
+                        sx={{ ml: 2, cursor: "pointer" }}
+                        spacing={0.5}
+                        onClick={() => {
+                          unlikeMutation(post._id);
+                        }}>
+                        <Typography>{post?.unlike_count || ""}</Typography>
+                        {post.reaction_state === "un_like" ? (
+                          <ThumbDownAltIcon />
+                        ) : (
+                          <ThumbDownOffAltIcon />
+                        )}
+                      </Stack>
+                    </Stack>
+
+                    <Typography>Description:</Typography>
+                    <Typography sx={{ whiteSpace: "break-spaces" }}>
+                      {post.description}
+                    </Typography>
+                  </Stack>
+                </Grid>
+              </Grid>
             </Stack>
             <Divider />
           </React.Fragment>
