@@ -4,14 +4,14 @@ import { getMe } from "../utils/apis";
 
 type AuthContextProps = {
   refetchGetMe: () => void;
-  user: any;
+  user?: any;
   isFetchingUserInfo: boolean;
 };
 export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({ children }: any) => {
   const {
-    data: user,
+    data: user = {},
     isFetching: isFetchingUserInfo,
     refetch: refetchGetMe,
   } = useQuery({

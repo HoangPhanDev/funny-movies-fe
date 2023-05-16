@@ -1,25 +1,26 @@
-import { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Header } from "./components/Header";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { Content } from "./components/Content";
-import { Stack } from "@mui/material";
 import { AuthProvider } from "./provider/AuthProvider";
+import { SocketProvider } from "./provider/SocketProvider";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
-          <Header />
-          <Content />
-        </BrowserRouter>
+        <SnackbarProvider maxSnack={3}>
+          <SocketProvider>
+            <BrowserRouter>
+              <Header />
+              <Content />
+            </BrowserRouter>
+          </SocketProvider>
+        </SnackbarProvider>
+
         <CssBaseline />
       </AuthProvider>
     </QueryClientProvider>

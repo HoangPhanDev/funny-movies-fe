@@ -1,8 +1,8 @@
 import axios from "axios";
 import { rfToken } from "../utils/apis";
-const API_URL = "https://funnymovies.up.railway.app";
+import { BASE_API_URL } from "../configs";
 const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: BASE_API_URL,
   timeout: 90 * 1000, // 90s
   withCredentials: true,
   headers: {

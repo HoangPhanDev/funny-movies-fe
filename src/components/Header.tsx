@@ -8,8 +8,8 @@ import {
   Stack,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { getMe, login, logout } from "../utils/apis";
+import { useMutation } from "@tanstack/react-query";
+import { login, logout } from "../utils/apis";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import CircularProgress from "@mui/joy/CircularProgress";
@@ -97,6 +97,8 @@ export const Header = (props: HeaderProps) => {
     );
   };
 
+  console.log(user);
+
   return (
     <AppBar component='nav'>
       <Toolbar
@@ -140,7 +142,7 @@ export const Header = (props: HeaderProps) => {
           {isFetchingUserInfo ? (
             <CircularProgress variant='soft' />
           ) : (
-            <>{!!user ? renderUserInfo() : renderForm()}</>
+            <>{!!user?._id ? renderUserInfo() : renderForm()}</>
           )}
         </Stack>
       </Toolbar>
