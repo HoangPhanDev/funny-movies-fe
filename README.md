@@ -1,39 +1,35 @@
-#### Introduction: 
+#### Introduction:
+
 Site allow every one to sharing youtube video
-#### Prerequisites: 
+
+#### Prerequisites:
+
 just install yarn and nodejs currently version
-#### Installation & Configuration: 
-run
+
+#### Installation & Configuration:
+
+- run
+
 ```bash
 yarn
 ```
+
 - run the development server:
+
 ```bash
 yarn dev
 ```
+
 - run on server
+
 ```bash
 yarn start
 ```
+
 #### Usage:
+
 - login/register
 - logout
 - share video
 - like/unlike
 - watch video
-
-
-
-## Getting Started
-
-#### run the development server:
-
-```bash
-yarn dev
-```
-
-#### run on server
-
-```bash
-yarn start
-```
